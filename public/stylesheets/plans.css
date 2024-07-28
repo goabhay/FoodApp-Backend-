@@ -1,0 +1,57 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2; /* Updated background color */
+}
+
+.plans-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow plans to wrap to the next row */
+    justify-content: space-around;
+    align-items: center;
+    margin: 50px;
+}
+
+.plan {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 10px; /* Add margin for spacing between plans */
+    width: 250px; /* Set a fixed width for each plan, adjust as needed */
+}
+
+.plan h2 {
+    color: #333;
+}
+
+.price {
+    font-size: 20px;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}

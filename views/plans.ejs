@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Our Plans - DeliciousEats</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; /* Updated background color */
+        }
+
+        .plans-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow plans to wrap to the next row */
+            justify-content: space-around;
+            align-items: center;
+            margin: 50px;
+        }
+
+        .plan {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            margin: 10px; /* Add margin for spacing between plans */
+            width: 250px; /* Set a fixed width for each plan, adjust as needed */
+        }
+
+        .plan h2 {
+            color: #333;
+        }
+
+        .duration, .rating, .discount,.reviews {
+            font-size: 18px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="plans-container">
+        <% plans.forEach(plan => { %>
+            <div class="plan">
+                <h2><%= plan.name %></h2>
+                <p class="duration"><%= plan.duration %>/month</p>
+                <p class="discount">Discount: <%= plan.discount %></p>
+                <p class="rating">Rating: <%= plan.rating %>/10</p>
+                <p class="reviews">Review: <%= plan.reviewCnt %></p>
+
+                <!-- <% if (plan.features && plan.features.length > 0) { %>
+                    <ul>
+                        <% plan.features.forEach(feature => { %>
+                            <li><%= feature %></li>
+                        <% }); %>
+                    </ul> -->
+                <!-- <% } %> -->
+
+                <a href="/review/<%= plan.id %>" class="btn">Select Plan</a>
+
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

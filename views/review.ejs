@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Plan Reviews - DeliciousEats</title>
+   <!-- <link rel="stylesheet" href="stylesheets/review.css"> -->
+   <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 20px;
+}
+
+.review {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+}
+
+.review h3 {
+    color: #333;
+}
+
+.author, .date ,.rating{
+    font-size: 14px;
+    color: #666;
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+   </style>
+</head>
+<body>
+    <header>
+        <h1>Plan Reviews</h1>
+    </header>
+
+    <div class="reviews-container">
+        <% review.forEach(review => { %>
+            <div class="review">
+                <h3><%= review.review %></h3>
+                <p class="author">By:<%= review.user.name %></p>
+                <p class="rating">Rating: <%= review.rating %></p>
+                <p class="date">Date: <%= review.createdAt %></p>
+               
+            </div>
+        <% }); %>
+    </div>
+
+    <a href="/plans/allPlans" class="btn">Back to Plans</a>
+</body>
+</html>

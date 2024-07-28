@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>User Dashboard - DeliciousEats</title>
+  <style>
+    <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .dashboard-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ddd;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: #333;
+      margin: 0;
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .profile-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 20px;
+      border: 3px solid #1ab556;
+    }
+
+    .profile-card-info {
+      flex-grow: 1;
+    }
+
+    .profile-card-info p {
+      font-size: 24px;
+      color: #333;
+      margin: 0;
+    }
+
+    .edit-button,
+    .logout-button {
+      background-color: #1ab556;
+      color: #fff;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    .logout-button {
+      margin-left: 10px;
+    }
+
+    /* Styles for the modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Add additional styles for your dashboard content as needed */
+  </style>
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Welcome, <%= user.name %></h1>
+      <div class="profile-card">
+        <img src="<%= user.profileImage %>" alt="User Photo">
+        <div class="profile-card-info">
+          <p><%= user.name %></p>
+          <button class="edit-button" onclick="openEditModal()">Edit</button>
+          <a href="/user/logout" class="logout-button">Logout</a>
+        </div>
+      </div>
+      
+    </header>
+
+    <main>
+      <!-- Your dashboard content goes here -->
+      <p>Your dashboard content goes here.</p>
+    </main>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Edit Profile</h2>
+      <form id="profileForm" enctype="multipart/form-data">
+        <label for="newName">New Name:</label>
+        <input type="text" id="newName" name="newName" placeholder="Enter your new name">
+
+        <label for="newPhoto">New Profile Picture:</label>
+        <input type="file" id="newPhoto" name="newPhoto" accept="image/*">
+
+        <button type="button" onclick="updateProfile()">Update Profile</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    function openEditModal() {
+      var modal = document.getElementById("editModal");
+      modal.style.display = "block";
+    }
+
+    function closeEditModal() {
+      var modal = document.getElementById("editModal");
+      modal.style.display = "none";
+    }
+
+    async function updateProfile() {
+  // Retrieve form values
+  const name = document.getElementById('newName').value;
+  const photo = document.getElementById('newPhoto').files[0];
+
+  // Check if both name and photo are present
+  if (!name || !photo) {
+    console.error('Please fill in all the required fields.');
+    return;
+  }
+
+  // Create a FormData object to handle file uploads
+  const formData = new FormData();
+  formData.append('newName', name);
+  formData.append('newPhoto', photo);
+
+  console.log(formData)
+  // Print FormData object to console (for debugging purposes)
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+
+  const editUser = '/user/editProfile';
+
+  // Use axios to send the FormData with the post request
+  try {
+    const response = await axios.post(editUser, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    // Handle the response if needed
+    console.log('Edit profile response:', response.data);
+
+    // Close the edit modal after a successful update
+    closeEditModal();
+  } catch (error) {
+    // Handle errors
+    console.error('Error editing profile:', error);
+  }
+}
+
+  </script>
+
+</body>
+
+</html>
